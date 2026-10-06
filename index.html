@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POLARIS ENERGY AI - Extreme Polar Energy Management</title>
+  <meta name="description" content="AI-Powered Energy & Fuel Optimization for Extreme Polar Environments">
+  
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       LOGIN VIEW SCREEN
+       ========================================================================== -->
+  <div id="login-view" class="login-container">
+    <div class="login-left">
+      <div class="brand-wrapper">
+        <div class="brand-logo">
+          <div class="brand-icon"><i class="fas fa-snowflake"></i></div>
+          <h1 class="brand-title">POLARIS</h1>
+        </div>
+        <div class="brand-subtitle">ENERGY AI</div>
+      </div>
+
+      <div class="hero-statement">
+        <h2>Intelligent energy management for extreme environments.</h2>
+        <p>Optimizing renewable solar microgrids, thermal battery reserves, and fuel efficiency in isolated Antarctic research stations.</p>
+        
+        <div class="station-badge-list">
+          <div class="station-badge"><i class="fas fa-satellite-dish"></i> Polar Station Alpha</div>
+          <div class="station-badge"><i class="fas fa-compass"></i> 77°51'S 166°40'E</div>
+        </div>
+      </div>
+
+      <div class="login-footer-text">
+        &copy; 2026 Polaris Energy AI Prototype &bull; Challenge 23 Solution
+      </div>
+    </div>
+
+    <div class="login-right">
+      <div class="login-card">
+        <div class="login-card-header">
+          <h3>Operator Login</h3>
+          <p>Access Polar Station Alpha Energy Control Center</p>
+        </div>
+
+        <div id="login-error" style="display:none; color: var(--color-danger); font-size: 0.85rem; margin-bottom: 1rem; text-align: center;"></div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope input-icon"></i>
+              <input type="email" id="login-email" class="form-input" placeholder="operator@polaris.ai" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock input-icon"></i>
+              <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-sign-in-alt"></i> Login to System
+          </button>
+        </form>
+
+        <button type="button" id="demo-login-btn" class="btn-secondary">
+          <i class="fas fa-bolt"></i> Instant Demo Login
+        </button>
+
+        <div class="demo-credentials-box">
+          <strong>Demo Access Credentials:</strong><br>
+          Email: <code>admin@polaris.ai</code><br>
+          Password: <code>polar123</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
+       MAIN DASHBOARD APPLICATION VIEW
+       ========================================================================== -->
+  <div id="app-view" id="app-container" style="display: none;">
+    
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-header">
+          <a href="#" class="sidebar-brand">
+            <div class="sidebar-brand-icon"><i class="fas fa-snowflake"></i></div>
+            <div class="sidebar-brand-text">
+              <h1>POLARIS</h1>
+              <span>ENERGY AI</span>
+            </div>
+          </a>
+        </div>
+
+        <ul class="nav-list">
+          <li class="nav-item active" data-view="dashboard">
+            <a href="#">
+              <div class="nav-item-content">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item" data-view="forecast">
+            <a href="#">
+              <div class="nav-item-content">
+                <i class="fas fa-chart-line"></i>
+                <span>AI Forecast</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item" data-view="optimization">
+            <a href="#">
+              <div class="nav-item-content">
+                <i class="fas fa-sliders-h"></i>
+                <span>Energy Optimization</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item" data-view="load-mgmt">
+            <a href="#">
+              <div class="nav-item-content">
+                <i class="fas fa-network-wired"></i>
+                <span>Load Management</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item" data-view="anomaly">
+            <a href="#">
+              <div class="nav-item-content">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Anomaly Detection</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item" data-view="monitoring">
+            <a href="#">
+              <div class="nav-item-content">
+                <i class="fas fa-desktop"></i>
+                <span>Live Monitoring</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item" data-view="alerts">
+            <a href="#">
+              <div class="nav-item-content">
+                <i class="fas fa-bell"></i>
+                <span>Alerts</span>
+              </div>
+              <span id="alert-count-badge" class="nav-badge">2</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="system-status-indicator">
+          <div class="status-dot"></div>
+          <span>System Status: <strong>ONLINE</strong></span>
+        </div>
+
+        <button id="logout-btn" class="btn-logout">
+          <i class="fas fa-power-off"></i> Logout Operator
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN RIGHT CONTENT WRAPPER -->
+    <div class="main-wrapper">
+      
+      <!-- TOP HEADER BAR -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="mobile-menu-toggle" class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          
+          <div class="station-title">
+            <h2>Polar Station Alpha</h2>
+            <p><i class="fas fa-map-marker-alt"></i> Antarctic Research Zone</p>
+          </div>
+
+          <div class="header-weather-mini">
+            <div class="weather-mini-item"><i class="fas fa-temperature-low"></i> Temp: <span id="hdr-temp">-28°C</span></div>
+            <div class="weather-mini-item"><i class="fas fa-wind"></i> Wind: <span id="hdr-wind">42 km/h</span></div>
+            <div class="weather-mini-item"><i class="fas fa-sun"></i> Solar: <span id="hdr-solar">180 W/m²</span></div>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="sim-time-badge">
+            <i class="far fa-clock"></i> <span id="sim-time">12:34:56 UTC-3</span>
+          </div>
+
+          <div class="header-icon-btn" onclick="DashboardUI.switchView('alerts')">
+            <i class="far fa-bell"></i>
+            <div class="icon-badge"></div>
+          </div>
+
+          <div class="user-profile">
+            <div class="user-avatar">EO</div>
+            <div class="user-info">
+              <div class="user-name">Energy Operator</div>
+              <div class="user-role">Polaris AI System</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT SECTIONS -->
+      <main class="content-area">
+        
+        <!-- SECTION 1: MAIN DASHBOARD -->
+        <section id="view-dashboard" class="view-section active">
+          <div class="page-header">
+            <div class="page-title">
+              <h1>Energy Control Center</h1>
+              <p>AI-powered real-time energy intelligence</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn-primary btn-run-optimization">
+                <i class="fas fa-brain"></i> Run AI Optimization
+              </button>
+            </div>
+          </div>
+
+          <!-- TOP 6 KPI CARDS -->
+          <div class="grid-6">
+            <div class="card kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Current Demand</span>
+                <div class="kpi-icon"><i class="fas fa-bolt"></i></div>
+              </div>
+              <div class="kpi-value-group">
+                <span id="kpi-demand-val" class="kpi-value">1.82</span>
+                <span class="kpi-unit">MW</span>
+              </div>
+              <div class="kpi-trend trend-neutral"><i class="fas fa-minus"></i> Stable Station Load</div>
+            </div>
+
+            <div class="card kpi-card kpi-renewable">
+              <div class="kpi-top">
+                <span class="kpi-label">Renewable Gen</span>
+                <div class="kpi-icon" style="color: var(--color-renewable); background: rgba(16, 185, 129, 0.1);"><i class="fas fa-solar-panel"></i></div>
+              </div>
+              <div class="kpi-value-group">
+                <span id="kpi-renewable-val" class="kpi-value">1.21</span>
+                <span class="kpi-unit">MW</span>
+              </div>
+              <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> 66.5% Demand Covered</div>
+            </div>
+
+            <div class="card kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Battery SOC</span>
+                <div class="kpi-icon"><i class="fas fa-car-battery"></i></div>
+              </div>
+              <div class="kpi-value-group">
+                <span id="kpi-battery-val" class="kpi-value">78</span>
+                <span class="kpi-unit">%</span>
+              </div>
+              <div class="kpi-trend trend-up"><i class="fas fa-charging-station"></i> Healthy Reserve</div>
+            </div>
+
+            <div class="card kpi-card kpi-warning">
+              <div class="kpi-top">
+                <span class="kpi-label">Fuel Remaining</span>
+                <div class="kpi-icon" style="color: var(--color-warning); background: rgba(245, 158, 11, 0.1);"><i class="fas fa-gas-pump"></i></div>
+              </div>
+              <div class="kpi-value-group">
+                <span id="kpi-fuel-val" class="kpi-value">64</span>
+                <span class="kpi-unit">%</span>
+              </div>
+              <div class="kpi-trend trend-neutral"><i class="fas fa-history"></i> 48 Days Operational</div>
+            </div>
+
+            <div id="kpi-generator-card" class="card kpi-card kpi-renewable">
+              <div class="kpi-top">
+                <span class="kpi-label">Generator Status</span>
+                <div class="kpi-icon"><i class="fas fa-cogs"></i></div>
+              </div>
+              <div class="kpi-value-group">
+                <span id="kpi-generator-val" class="kpi-value" style="font-size: 1.4rem; font-weight: 700;">STANDBY</span>
+              </div>
+              <div class="kpi-trend trend-up"><i class="fas fa-leaf"></i> 0 Fuel Burned Currently</div>
+            </div>
+
+            <div class="card kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">System Reliability</span>
+                <div class="kpi-icon"><i class="fas fa-shield-alt"></i></div>
+              </div>
+              <div class="kpi-value-group">
+                <span id="kpi-reliability-val" class="kpi-value">99.4</span>
+                <span class="kpi-unit">%</span>
+              </div>
+              <div class="kpi-trend trend-up"><i class="fas fa-check-circle"></i> Nominal Security</div>
+            </div>
+          </div>
+
+          <!-- VISUAL ENERGY FLOW SECTION -->
+          <div class="flow-container">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-project-diagram"></i> Visual Energy Flow Architecture</h3>
+              <span class="advisor-badge"><i class="fas fa-sync-alt fa-spin"></i> Live Dynamic Distribution</span>
+            </div>
+
+            <div class="flow-grid">
+              <!-- Solar Node -->
+              <div class="flow-node flow-node-solar">
+                <div class="flow-node-box">
+                  <i class="fas fa-sun flow-node-icon"></i>
+                  <span id="flow-solar-val" class="flow-node-val">1.21 MW</span>
+                </div>
+                <span class="flow-node-name">Solar Array</span>
+                <span class="flow-node-sub">Capacity: 2.5 MW</span>
+              </div>
+
+              <div class="flow-arrow">
+                <div class="flow-line"><div id="flow-solar-pulse" class="flow-pulse"></div></div>
+                <span class="flow-arrow-label">Renewable Supply</span>
+              </div>
+
+              <!-- Battery Node -->
+              <div class="flow-node flow-node-battery">
+                <div class="flow-node-box">
+                  <i class="fas fa-battery-three-quarters flow-node-icon"></i>
+                  <span id="flow-battery-val" class="flow-node-val">0.32 MW</span>
+                </div>
+                <span class="flow-node-name">Battery Bank</span>
+                <span class="flow-node-sub">Capacity: 4 MWh</span>
+              </div>
+
+              <div class="flow-arrow">
+                <div class="flow-line"><div id="flow-batt-pulse" class="flow-pulse"></div></div>
+                <span class="flow-arrow-label">Discharge / Charge</span>
+              </div>
+
+              <!-- Generator Node -->
+              <div class="flow-node flow-node-generator">
+                <div class="flow-node-box">
+                  <i class="fas fa-industry flow-node-icon"></i>
+                  <span id="flow-generator-val" class="flow-node-val">0.00 MW</span>
+                </div>
+                <span class="flow-node-name">Diesel Generator</span>
+                <span class="flow-node-sub">Capacity: 3 MW</span>
+              </div>
+
+              <div class="flow-arrow">
+                <div class="flow-line"><div id="flow-gen-pulse" class="flow-pulse" style="display:none;"></div></div>
+                <span class="flow-arrow-label">Backup Power</span>
+              </div>
+
+              <!-- Station Load Node -->
+              <div class="flow-node flow-node-load">
+                <div class="flow-node-box">
+                  <i class="fas fa-building flow-node-icon"></i>
+                  <span id="flow-load-val" class="flow-node-val">1.82 MW</span>
+                </div>
+                <span class="flow-node-name">Station Total Load</span>
+                <span class="flow-node-sub">Antarctic Base Alpha</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- REAL TIME ENERGY CHART & WEATHER / AI INSIGHT PANEL -->
+          <div class="grid-2">
+            <!-- 24-Hour Line Chart -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-chart-area"></i> 24-Hour Energy Demand vs Renewable Generation</h3>
+                <div class="btn-group">
+                  <button class="btn-filter btn-chart-time active" data-range="24H">24H</button>
+                  <button class="btn-filter btn-chart-time" data-range="7D">7D</button>
+                  <button class="btn-filter btn-chart-time" data-range="30D">30D</button>
+                </div>
+              </div>
+              <div style="height: 320px; position: relative;">
+                <canvas id="chart-main-energy"></canvas>
+              </div>
+            </div>
+
+            <!-- WEATHER & AI INSIGHT COLUMN -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+              <!-- Weather Card -->
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><i class="fas fa-cloud-snowflake"></i> Weather Intelligence</h3>
+                  <span id="card-risk-badge" class="priority-tag priority-critical">HIGH RISK</span>
+                </div>
+                <div class="anomaly-details-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 0.8rem;">
+                  <div class="anomaly-detail-item"><label>Temperature</label><span id="card-temp">-28°C</span></div>
+                  <div class="anomaly-detail-item"><label>Wind Speed</label><span id="card-wind">42 km/h</span></div>
+                  <div class="anomaly-detail-item"><label>Solar Radiation</label><span id="card-solar">180 W/m²</span></div>
+                  <div class="anomaly-detail-item"><label>Visibility</label><span id="card-vis">4.2 km</span></div>
+                </div>
+                <div class="load-rec-note" style="border-left: 3px solid var(--color-warning);">
+                  <i class="fas fa-exclamation-triangle"></i> <span id="card-impact-msg">Low solar availability expected during the next 6 hours.</span>
+                </div>
+              </div>
+
+              <!-- AI Advisor Card -->
+              <div class="ai-advisor-card">
+                <div class="advisor-badge">
+                  <i class="fas fa-brain"></i> AI ENERGY ADVISOR
+                </div>
+                <h4 id="advisor-decision" style="font-size: 1.1rem; color: var(--accent-cyan); margin-bottom: 0.5rem;">Use Solar + Battery Storage</h4>
+                <p id="advisor-reason" class="advisor-recommendation">
+                  Solar generation is expected to decrease by 28% over the next 6 hours due to incoming snowfall. Maintain battery reserve above 55% and delay non-critical heating loads.
+                </p>
+
+                <div class="advisor-metrics">
+                  <div class="advisor-metric-item"><span>Confidence:</span> <strong id="advisor-confidence">92%</strong></div>
+                  <div class="advisor-metric-item"><span>Fuel Saving Est:</span> <strong id="advisor-fuel-saving">18.6 L/hour</strong></div>
+                </div>
+
+                <button class="btn-primary btn-run-optimization">
+                  <i class="fas fa-play"></i> Run AI Optimization
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: AI FORECAST -->
+        <section id="view-forecast" class="view-section">
+          <div class="page-header">
+            <div class="page-title">
+              <h1>AI Energy Forecast</h1>
+              <p>Predictive analytics for energy demand and environmental conditions</p>
+            </div>
+            <div class="advisor-badge" style="font-size: 0.9rem;">
+              <i class="fas fa-bullseye"></i> Forecast Accuracy: <strong>94.2%</strong>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <div class="card">
+              <div class="kpi-top">
+                <span class="kpi-label">Next 6 Hours</span>
+                <i class="fas fa-clock text-muted"></i>
+              </div>
+              <div class="kpi-value-group">
+                <span class="kpi-value">1.9</span><span class="kpi-unit">MW Demand</span>
+              </div>
+              <div class="kpi-trend trend-neutral">Solar Forecast: 0.9 MW</div>
+            </div>
+
+            <div class="card">
+              <div class="kpi-top">
+                <span class="kpi-label">Next 12 Hours</span>
+                <i class="fas fa-clock text-muted"></i>
+              </div>
+              <div class="kpi-value-group">
+                <span class="kpi-value">2.1</span><span class="kpi-unit">MW Demand</span>
+              </div>
+              <div class="kpi-trend trend-down">Solar Forecast: 0.7 MW</div>
+            </div>
+
+            <div class="card">
+              <div class="kpi-top">
+                <span class="kpi-label">Next 24 Hours</span>
+                <i class="fas fa-clock text-muted"></i>
+              </div>
+              <div class="kpi-value-group">
+                <span class="kpi-value">2.4</span><span class="kpi-unit">MW Peak</span>
+              </div>
+              <div class="kpi-trend trend-up">Battery Buffer Required</div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom: 1.8rem;">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-chart-line"></i> 24-Hour Predictive Demand vs Solar Availability</h3>
+            </div>
+            <div style="height: 350px;">
+              <canvas id="chart-forecast"></canvas>
+            </div>
+          </div>
+
+          <div class="advisor-recommendation" style="font-size: 1rem;">
+            <i class="fas fa-lightbulb" style="color: var(--color-warning);"></i> <strong>AI Insight Explanation:</strong> Demand is expected to increase during the next heating cycle due to an atmospheric temperature drop (-34°C forecast). Battery reserves are queued for pre-charging.
+          </div>
+        </section>
+
+        <!-- SECTION 3: ENERGY OPTIMIZATION -->
+        <section id="view-optimization" class="view-section">
+          <div class="page-header">
+            <div class="page-title">
+              <h1>AI Energy Optimization</h1>
+              <p>Source priority configuration and diesel fuel minimization</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn-primary btn-run-optimization"><i class="fas fa-play"></i> Run Optimization</button>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <!-- Source Priority List -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-sort-amount-down"></i> AI Source Priority Matrix</h3>
+              </div>
+              
+              <div style="display:flex; flex-direction:column; gap: 1rem;">
+                <div class="alert-item" style="border-left: 4px solid var(--color-renewable);">
+                  <div class="alert-item-left">
+                    <div class="alert-icon-box" style="background: rgba(16,185,129,0.2); color: var(--color-renewable);"><i class="fas fa-solar-panel"></i></div>
+                    <div class="alert-content">
+                      <h4>1. Renewable Energy (Solar & Wind)</h4>
+                      <p>Capacity: 2.5 MW &bull; Status: <strong style="color: var(--color-renewable);">ACTIVE</strong></p>
+                    </div>
+                  </div>
+                  <span class="priority-tag priority-low">PRIORITY 1</span>
+                </div>
+
+                <div class="alert-item" style="border-left: 4px solid var(--accent-cyan);">
+                  <div class="alert-item-left">
+                    <div class="alert-icon-box" style="background: rgba(0,242,254,0.2); color: var(--accent-cyan);"><i class="fas fa-car-battery"></i></div>
+                    <div class="alert-content">
+                      <h4>2. Battery Storage Reserve</h4>
+                      <p>Capacity: 4 MWh &bull; Charge: <strong>78%</strong> &bull; Status: <strong style="color: var(--accent-cyan);">CHARGING</strong></p>
+                    </div>
+                  </div>
+                  <span class="priority-tag priority-low">PRIORITY 2</span>
+                </div>
+
+                <div class="alert-item" style="border-left: 4px solid var(--color-warning);">
+                  <div class="alert-item-left">
+                    <div class="alert-icon-box" style="background: rgba(245,158,11,0.2); color: var(--color-warning);"><i class="fas fa-industry"></i></div>
+                    <div class="alert-content">
+                      <h4>3. Diesel Generator Backup</h4>
+                      <p>Capacity: 3 MW &bull; Status: <strong style="color: var(--color-warning);">STANDBY</strong></p>
+                    </div>
+                  </div>
+                  <span class="priority-tag priority-critical">PRIORITY 3</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fuel Optimization Metrics & Chart -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-gas-pump"></i> Fuel Savings Analytics</h3>
+              </div>
+              <div class="anomaly-details-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="anomaly-detail-item"><label>Current Fuel Rate</label><span id="fuel-rate-current">42.0 L/hr</span></div>
+                <div class="anomaly-detail-item"><label>Optimized Rate</label><span id="fuel-rate-optimized" style="color: var(--color-renewable);">23.4 L/hr</span></div>
+                <div class="anomaly-detail-item"><label>Hourly Savings</label><span id="fuel-saved-hourly" style="color: var(--accent-cyan);">18.6 L/hr</span></div>
+                <div class="anomaly-detail-item"><label>Daily Savings</label><span id="fuel-saved-daily">446.4 L</span></div>
+              </div>
+              <div style="height: 200px; margin-top: 1rem;">
+                <canvas id="chart-fuel-opt"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: SMART LOAD MANAGEMENT -->
+        <section id="view-load-mgmt" class="view-section">
+          <div class="page-header">
+            <div class="page-title">
+              <h1>Smart Load Management</h1>
+              <p>Priority-based automated load shedding during energy scarcity</p>
+            </div>
+            <div class="header-actions">
+              <button id="btn-load-shedding" class="btn-primary" style="background: linear-gradient(135deg, var(--color-warning), #D97706);">
+                <i class="fas fa-power-off"></i> AI Load Shedding
+              </button>
+            </div>
+          </div>
+
+          <h3 class="load-section-header"><i class="fas fa-shield-virus" style="color: var(--color-danger);"></i> CRITICAL LOADS (Non-Interruptible)</h3>
+          <div id="critical-loads-grid" class="load-grid"></div>
+
+          <h3 class="load-section-header" style="margin-top: 2rem;"><i class="fas fa-feather-alt" style="color: var(--accent-polar);"></i> NON-CRITICAL LOADS (Sheddable)</h3>
+          <div id="non-critical-loads-grid" class="load-grid"></div>
+        </section>
+
+        <!-- SECTION 5: ANOMALY DETECTION -->
+        <section id="view-anomaly" class="view-section">
+          <div class="page-header">
+            <div class="page-title">
+              <h1>AI Anomaly Detection</h1>
+              <p>Real-time pattern analysis for fault identification and abnormal consumption</p>
+            </div>
+            <div class="advisor-badge">
+              <i class="fas fa-search-location"></i> Anomalies Detected: <strong>2 Active</strong>
+            </div>
+          </div>
+
+          <div class="anomaly-card">
+            <div class="anomaly-header">
+              <div class="anomaly-title"><i class="fas fa-exclamation-triangle" style="color: var(--color-danger);"></i> HIGH CONSUMPTION DETECTED</div>
+              <span class="priority-tag priority-critical">HIGH SEVERITY</span>
+            </div>
+            <div class="anomaly-details-grid">
+              <div class="anomaly-detail-item"><label>Location</label><span>Heating Unit B</span></div>
+              <div class="anomaly-detail-item"><label>Expected Baseline</label><span>0.18 MW</span></div>
+              <div class="anomaly-detail-item"><label>Actual Consumption</label><span style="color: var(--color-danger);">0.31 MW</span></div>
+              <div class="anomaly-detail-item"><label>Deviation</label><span style="color: var(--color-danger);">+72%</span></div>
+            </div>
+            <p class="load-rec-note"><i class="fas fa-wrench"></i> <strong>Recommendation:</strong> Inspect heating unit thermal seal for leakage or mechanical binding.</p>
+          </div>
+
+          <div class="anomaly-card warning-type">
+            <div class="anomaly-header">
+              <div class="anomaly-title"><i class="fas fa-solar-panel" style="color: var(--color-warning);"></i> SOLAR GENERATION ANOMALY</div>
+              <span class="priority-tag" style="background: rgba(245, 158, 11, 0.2); color: var(--color-warning);">MODERATE SEVERITY</span>
+            </div>
+            <div class="anomaly-details-grid">
+              <div class="anomaly-detail-item"><label>Location</label><span>Solar Sub-Array East</span></div>
+              <div class="anomaly-detail-item"><label>Expected Output</label><span>1.40 MW</span></div>
+              <div class="anomaly-detail-item"><label>Actual Output</label><span style="color: var(--color-warning);">0.92 MW</span></div>
+              <div class="anomaly-detail-item"><label>Deviation</label><span style="color: var(--color-warning);">-34%</span></div>
+            </div>
+            <p class="load-rec-note"><i class="fas fa-snowplow"></i> <strong>Cause:</strong> Possible snow accumulation or ice crusting on photovoltaics.</p>
+          </div>
+
+          <div class="card" style="margin-top: 1.5rem;">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-chart-bar"></i> Expected vs Actual Energy Deviation</h3>
+            </div>
+            <div style="height: 250px;">
+              <canvas id="chart-anomaly"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 6: LIVE MONITORING -->
+        <section id="view-monitoring" class="view-section">
+          <div class="page-header">
+            <div class="page-title">
+              <h1>Live Energy Monitoring</h1>
+              <p>High-frequency station power telemetry</p>
+            </div>
+            <div class="advisor-badge" style="background: rgba(16, 185, 129, 0.2); color: var(--color-renewable);">
+              <i class="fas fa-circle" style="font-size: 0.6rem; animation: pulse-green 1.5s infinite;"></i> LIVE STREAMING
+            </div>
+          </div>
+
+          <div class="grid-6">
+            <div class="card">
+              <span class="kpi-label">Power Demand</span>
+              <div id="mon-demand" class="kpi-value" style="font-size: 1.5rem; color: var(--accent-cyan);">1.82 MW</div>
+            </div>
+            <div class="card">
+              <span class="kpi-label">Renewable Output</span>
+              <div id="mon-renewable" class="kpi-value" style="font-size: 1.5rem; color: var(--color-renewable);">1.21 MW</div>
+            </div>
+            <div class="card">
+              <span class="kpi-label">Battery SOC</span>
+              <div id="mon-battery" class="kpi-value" style="font-size: 1.5rem; color: var(--accent-polar);">78%</div>
+            </div>
+            <div class="card">
+              <span class="kpi-label">Generator Output</span>
+              <div id="mon-generator" class="kpi-value" style="font-size: 1.5rem; color: var(--color-warning);">0.00 MW</div>
+            </div>
+            <div class="card">
+              <span class="kpi-label">Fuel Rate</span>
+              <div id="mon-fuel" class="kpi-value" style="font-size: 1.5rem;">23.4 L/h</div>
+            </div>
+            <div class="card">
+              <span class="kpi-label">Station Stability</span>
+              <div class="kpi-value" style="font-size: 1.5rem; color: var(--color-renewable);">100%</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 7: ALERTS CENTER -->
+        <section id="view-alerts" class="view-section">
+          <div class="page-header">
+            <div class="page-title">
+              <h1>Alerts Center</h1>
+              <p>System warnings, alarms, and informational events</p>
+            </div>
+            <div class="header-actions">
+              <button id="btn-clear-alerts" class="btn-secondary" style="margin-top:0;">Clear All Alerts</button>
+            </div>
+          </div>
+
+          <div id="alerts-list-container" class="alerts-list">
+            <div class="alert-item alert-critical">
+              <div class="alert-item-left">
+                <div class="alert-icon-box"><i class="fas fa-battery-quarter"></i></div>
+                <div class="alert-content">
+                  <h4>CRITICAL: Battery reserve approaching minimum threshold</h4>
+                  <p>State of charge is currently at target reserve boundary. Optimization recommended.</p>
+                </div>
+              </div>
+              <div class="alert-actions">
+                <button class="btn-secondary btn-resolve-alert" style="margin:0; padding:0.4rem 0.8rem; font-size:0.8rem;">Mark as Resolved</button>
+              </div>
+            </div>
+
+            <div class="alert-item alert-warning">
+              <div class="alert-item-left">
+                <div class="alert-icon-box"><i class="fas fa-snowflake"></i></div>
+                <div class="alert-content">
+                  <h4>WARNING: Heavy snowfall may reduce solar generation</h4>
+                  <p>Weather satellite indicates 80% cloud coverage over Antarctic Sector 4.</p>
+                </div>
+              </div>
+              <div class="alert-actions">
+                <button class="btn-secondary btn-resolve-alert" style="margin:0; padding:0.4rem 0.8rem; font-size:0.8rem;">Mark as Resolved</button>
+              </div>
+            </div>
+
+            <div class="alert-item alert-warning">
+              <div class="alert-item-left">
+                <div class="alert-icon-box"><i class="fas fa-fire-alt"></i></div>
+                <div class="alert-content">
+                  <h4>WARNING: Heating Unit B showing abnormal consumption</h4>
+                  <p>Deviation of +72% detected relative to nominal thermal baseline.</p>
+                </div>
+              </div>
+              <div class="alert-actions">
+                <button class="btn-secondary btn-resolve-alert" style="margin:0; padding:0.4rem 0.8rem; font-size:0.8rem;">Mark as Resolved</button>
+              </div>
+            </div>
+
+            <div class="alert-item alert-info">
+              <div class="alert-item-left">
+                <div class="alert-icon-box"><i class="fas fa-check-circle"></i></div>
+                <div class="alert-content">
+                  <h4>INFO: AI optimization completed successfully</h4>
+                  <p>Priority matrix updated: Solar & Battery prioritized over Generator standby.</p>
+                </div>
+              </div>
+              <div class="alert-actions">
+                <button class="btn-secondary btn-resolve-alert" style="margin:0; padding:0.4rem 0.8rem; font-size:0.8rem;">Mark as Resolved</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
+       FLOATING SIMULATION CONTROL DRAWER
+       ========================================================================== -->
+  <div class="sim-drawer">
+    <button id="sim-drawer-toggle" class="sim-toggle-btn">
+      <i class="fas fa-sliders-h"></i> Simulation Controls
+    </button>
+
+    <div id="sim-drawer-panel" class="sim-panel">
+      <div class="sim-panel-header">
+        <h4><i class="fas fa-vial"></i> Live Environmental Simulator</h4>
+        <button id="sim-drawer-close" class="sim-close-btn"><i class="fas fa-times"></i></button>
+      </div>
+
+      <!-- Weather Controls -->
+      <div class="sim-control-group">
+        <label>Weather Condition</label>
+        <div id="sim-weather-btns" class="sim-btn-row">
+          <button class="sim-select-btn active" data-value="Normal">Normal</button>
+          <button class="sim-select-btn" data-value="Snow">Snow</button>
+          <button class="sim-select-btn" data-value="Blizzard">Blizzard</button>
+          <button class="sim-select-btn" data-value="Clear Sky">Clear</button>
+        </div>
+      </div>
+
+      <!-- Energy Demand Controls -->
+      <div class="sim-control-group">
+        <label>Station Energy Demand</label>
+        <div id="sim-demand-btns" class="sim-btn-row">
+          <button class="sim-select-btn" data-value="Low">Low</button>
+          <button class="sim-select-btn active" data-value="Normal">Normal</button>
+          <button class="sim-select-btn" data-value="High">High</button>
+          <button class="sim-select-btn" data-value="Extreme">Extreme</button>
+        </div>
+      </div>
+
+      <!-- Battery SOC Controls -->
+      <div class="sim-control-group">
+        <label>Battery Reserve (SOC)</label>
+        <div id="sim-battery-btns" class="sim-btn-row">
+          <button class="sim-select-btn" data-value="20">20%</button>
+          <button class="sim-select-btn" data-value="40">40%</button>
+          <button class="sim-select-btn" data-value="60">60%</button>
+          <button class="sim-select-btn active" data-value="80">80%</button>
+        </div>
+      </div>
+
+      <!-- Fuel Reserve Controls -->
+      <div class="sim-control-group">
+        <label>Diesel Fuel Level</label>
+        <div id="sim-fuel-btns" class="sim-btn-row">
+          <button class="sim-select-btn" data-value="15">15%</button>
+          <button class="sim-select-btn" data-value="35">35%</button>
+          <button class="sim-select-btn active" data-value="65">65%</button>
+          <button class="sim-select-btn" data-value="90">90%</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/simulation.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
